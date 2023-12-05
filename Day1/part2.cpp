@@ -23,6 +23,8 @@ bool canItBeANumber(string word){
     return false;
 }
 
+
+
 char getNumberFromString(string word){
     string newword;
     int i = word.length()-1;
