@@ -1,3 +1,9 @@
+"""
+-----------------------------------------------------------------------------------------------
+DISCLAIMER: This is not the best solution, but it works. I will try to improve it in the future.
+-----------------------------------------------------------------------------------------------
+"""
+
 import math
 
 matrix = []
@@ -100,12 +106,18 @@ def checkAdj(i,j):
             for item in list1:
                 numbers.append([item])
         if checkSymbol(i,j-1):
-            number = matrix[i][j-3:j]
-            number = number.replace(".","")
+            x=j-1
+            number = ""
+            while checkSymbol(i,x) and x>=0 and x>=j-3:
+                number = matrix[i][x]+number
+                x-=1
             numbers.append([int(number)])
         if checkSymbol(i,j+1):
-            number = matrix[i][j+1:j+4]
-            number = number.replace(".","")
+            number= ""
+            x=j+1
+            while checkSymbol(i,x) and x<len(matrix[i]) and x<=j+3:
+                number+=matrix[i][x]
+                x+=1
             numbers.append([int(number)])
     return numbers
 
@@ -113,14 +125,14 @@ i=0
 j=0
 sum=0
 while i < len(matrix):
+    cenas = 0
     while j < len(matrix[i]):
         if matrix[i][j]=='*':
             numbers = checkAdj(i,j)
             if len(numbers)==2:
                 flat_numbers = [item for sublist in numbers for item in sublist]
-                print('found a * with 2 numbers!'+ str(flat_numbers))
                 sum+= math.prod(flat_numbers)
-                print('product: '+ str(math.prod(flat_numbers))+' and the total is now: '+ str(sum))
+                cenas+=1
         j+=1
     i+=1
     j=0
